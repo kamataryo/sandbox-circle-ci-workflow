@@ -1,0 +1,59 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2
+
+jobs:
+  init:
+    docker:
+      - image: circleci/node:lts
+    working_directory: ~/repo
+    steps:
+      - run: echo 'Init job'
+
+  parallelized_0:
+    docker:
+      - image: circleci/node:lts
+    working_directory: ~/repo
+    steps:
+      - run: echo 'parallelized job 0'
+
+  parallelized_1:
+    docker:
+      - image: circleci/node:lts
+    working_directory: ~/repo
+    steps:
+      - run: echo 'parallelized job 1'
+
+  parallelized_2:
+    docker:
+      - image: circleci/node:lts
+    working_directory: ~/repo
+    steps:
+      - run: echo 'parallelized job 2'
+
+  sequential:
+    docker:
+      - image: circleci/node:lts
+    working_directory: ~/repo
+    steps:
+      - run: echo 'parallelized job 0'
+
+workflows:
+  version: 2
+  build:
+    - parallelized_0:
+        requires:
+          - init
+    - parallelized_1:
+        requires:
+          - init
+    - parallelized_2:
+        requires:
+          - init
+    - sequential:
+        requires:
+          - parallelized_0
+          - parallelized_1
+          - parallelized_2
