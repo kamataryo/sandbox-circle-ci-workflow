@@ -43,17 +43,18 @@ jobs:
 workflows:
   version: 2
   build:
-    - parallelized_0:
-        requires:
-          - init
-    - parallelized_1:
-        requires:
-          - init
-    - parallelized_2:
-        requires:
-          - init
-    - sequential:
-        requires:
-          - parallelized_0
-          - parallelized_1
-          - parallelized_2
+    jobs:
+      - parallelized_0:
+          requires:
+            - init
+      - parallelized_1:
+          requires:
+            - init
+      - parallelized_2:
+          requires:
+            - init
+      - sequential:
+          requires:
+            - parallelized_0
+            - parallelized_1
+            - parallelized_2
