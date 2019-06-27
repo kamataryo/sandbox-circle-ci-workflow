@@ -44,6 +44,7 @@ workflows:
   version: 2
   build:
     jobs:
+      - init
       - parallelized_0:
           requires:
             - init
